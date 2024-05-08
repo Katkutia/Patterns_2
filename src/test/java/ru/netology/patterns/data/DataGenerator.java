@@ -7,7 +7,6 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import lombok.Value;
-import lombok.val;
 
 import java.util.Locale;
 
@@ -21,8 +20,7 @@ public class DataGenerator {
             .setContentType(ContentType.JSON)
             .log(LogDetail.ALL)
             .build();
-
-    private static final Faker faker = new Faker(new Locale("en"));
+    private static final Faker faker = new Faker(new Locale("ru"));
 
     private DataGenerator() {
     }
@@ -38,11 +36,15 @@ public class DataGenerator {
     }
 
     public static String getRandomLogin() {
+        // TODO: добавить логику для объявления переменной login и задания её значения, для генерации
+        //  случайного логина используйте faker
         String login = faker.name().username();
         return login;
     }
 
     public static String getRandomPassword() {
+        // TODO: добавить логику для объявления переменной password и задания её значения, для генерации
+        //  случайного пароля используйте faker
         String password = faker.internet().password();
         return password;
     }
@@ -52,13 +54,17 @@ public class DataGenerator {
         }
 
         public static RegistrationDto getUser(String status) {
+            // TODO: создать пользователя user используя методы getRandomLogin(), getRandomPassword() и параметр status
             RegistrationDto user = new RegistrationDto(getRandomLogin(), getRandomPassword(), status);
             return user;
         }
 
         public static RegistrationDto getRegisteredUser(String status) {
-            val registeredUser = getUser(status);
+            // TODO: объявить переменную registeredUser и присвоить ей значение возвращённое getUser(status).
+            //  Послать запрос на регистрацию пользователя с помощью вызова sendRequest(registeredUser)
+            RegistrationDto registeredUser = getUser(status);
             sendRequest(registeredUser);
+
             return registeredUser;
         }
     }
